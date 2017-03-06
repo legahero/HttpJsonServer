@@ -1,5 +1,6 @@
 # HttpJsonServer
-用QT实现HTTP JSON服务器( http json server by QT)
+用QT实现HTTP JSON服务器( http json server by QT)，http 分析部分采用nodejs里面的http-parser（https://github.com/nodejs/http-parser）.
+
 用QT实现HTTP JSON服务器，主要原因是：
 1.使用java （servlet、com.sun.net.httpserver）容易反编译，虽然网上提供了一大把的java加密、混淆方案，但总感觉麻烦和不靠谱；
 2.其次单点服务器下运行效率java比C++慢；
