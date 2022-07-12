@@ -112,8 +112,11 @@ void QHttpServer::handleRequest(QHttpRequest *req, QHttpResponse *resp)
         return ;
     }
 
-    QJsonDocument doc=QJsonDocument::fromBinaryData(req->body());
-    QJsonObject recv_obj=doc.object();//这是接收到的json对象
+//    QJsonDocument doc=QJsonDocument::fromBinaryData(req->body());
+    QJsonParseError myerr;
+    QJsonDocument doc = QJsonDocument::fromJson(req->body(), &myerr);
+    QJsonObject recv_obj = doc.object();//这是接收到的json对象
+    emit updateRecvInfoSlot(recv_obj);
 
     QConnectPool* dbpool=QMultiDbManager::getDb("sql2014");
     if(dbpool!=NULL)

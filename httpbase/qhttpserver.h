@@ -31,6 +31,10 @@ public:
     QString searchConfigFile();
 
     QMultiDbManager m_mdbmng;
+
+signals:
+    void updateRecvInfoSlot(QJsonObject recv_obj);
+
 private Q_SLOTS:
     void handleRequest(QHttpRequest *request, QHttpResponse *response);
 

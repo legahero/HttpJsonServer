@@ -19,6 +19,9 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+public slots:
+    void updateRecvInfoSlot(QJsonObject recv_obj);
+
 private slots:
     void on_pbStart_clicked();
 private:
