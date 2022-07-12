@@ -69,7 +69,7 @@ void MainWindow::on_pbStart_clicked()
     qDebug() << "MainWindow:on_pbStart_clicked,ThreadId:"<<QThread::currentThreadId()  ;
 
     QHttpServer *server = new QHttpServer(this);
-
+    connect(server, &QHttpServer::updateRecvInfoSlot, this, &MainWindow::updateRecvInfoSlot);
     if(server->listen(QHostAddress::Any, qint16(ui->lePort->text().toInt())))
     {
         ui->teLog->append("http 服务已经启动!");
@@ -79,3 +79,16 @@ void MainWindow::on_pbStart_clicked()
     }
 }
 
+void MainWindow::updateRecvInfoSlot(QJsonObject recv_obj)
+{
+    QJsonObject *prm = reinterpret_cast<QJsonObject *>(&recv_obj);
+    QJsonObject::const_iterator it = prm->constBegin();
+    QJsonObject::const_iterator end = prm->constEnd();
+
+    while (it != end)
+    {
+        ui->teLog->append(it.key());
+        ui->teLog->append(it.value().toVariant().toString());
+        it++;
+    }
+}

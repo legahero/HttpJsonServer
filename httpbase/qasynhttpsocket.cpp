@@ -227,13 +227,16 @@ int QAsynHttpSocket::doMessageComplete(http_parser *parser)
     request->m_remoteAddress = theConnection->peerAddress().toString();
     request->m_remotePort = theConnection->peerPort();
 
+    // append data
+    request->appendBody(theConnection->m_currentBody);
 
     qDebug() << "QHttpResponse:new,ThreadId:"<<QThread::currentThreadId()  ;
     QHttpResponse *response = new QHttpResponse(theConnection);
     if (parser->http_major < 1 || parser->http_minor < 1)
         response->m_keepAlive = false;
 
-    request->storeBody();
+//    request->storeBody();
+//    emit request->data(theConnection->m_currentBody);
     request->setSuccessful(true);
 
     Q_EMIT theConnection->newRequest(request, response);
